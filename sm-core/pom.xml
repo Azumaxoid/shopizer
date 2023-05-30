@@ -239,6 +239,12 @@
 			<artifactId>h2</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.newrelic.agent.java</groupId>
+			<artifactId>newrelic-api</artifactId>
+			<version>8.2.0</version>
+		</dependency>
+
 	</dependencies>
 	
 

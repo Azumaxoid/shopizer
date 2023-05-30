@@ -141,7 +141,11 @@
 			<artifactId>passay</artifactId>
 			<version>1.6.0</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.newrelic.agent.java</groupId>
+			<artifactId>newrelic-api</artifactId>
+			<version>8.2.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

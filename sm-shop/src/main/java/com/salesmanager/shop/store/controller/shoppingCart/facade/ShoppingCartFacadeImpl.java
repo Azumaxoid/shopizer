@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
+import com.newrelic.api.agent.NewRelic;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -759,6 +760,7 @@ public class ShoppingCartFacadeImpl implements ShoppingCartFacade {
 
 		// if cart does not exist create a new one
 
+
 		ShoppingCart cartModel = new ShoppingCart();
 		cartModel.setMerchantStore(store);
 		cartModel.setShoppingCartCode(uniqueShoppingCartCode());
@@ -831,6 +833,10 @@ public class ShoppingCartFacadeImpl implements ShoppingCartFacade {
 			MerchantStore store, Language language) throws Exception {
 
 		com.salesmanager.core.model.shoppingcart.ShoppingCartItem itemModel = createCartItem(cartModel, item, store);
+		NewRelic.addCustomParameter("customer_id", cartModel.getCustomerId());
+		if (Math.floor(Math.random() * 10) < 2) {
+			throw new RuntimeException("This is Dummy Exception");
+		}
 
 		// need to check if the item is already in the cart
 		boolean duplicateFound = false;
@@ -1028,6 +1034,8 @@ public class ShoppingCartFacadeImpl implements ShoppingCartFacade {
 
 		Validate.notNull(customer, "Customer cannot be null");
 		Validate.notNull(customer.getId(), "Customer.id cannot be null or empty");
+		NewRelic.addCustomParameter("email", customer.getEmailAddress());
+		NewRelic.addCustomParameter("customer_id", customer.getId());
 
 		ShoppingCart cartModel = shoppingCartService.getShoppingCart(customer, store);
 

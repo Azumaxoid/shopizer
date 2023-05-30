@@ -1,5 +1,6 @@
 package com.salesmanager.core.business.services.shoppingcart;
 
+import com.newrelic.api.agent.NewRelic;
 import com.salesmanager.core.business.exception.ServiceException;
 import com.salesmanager.core.business.repositories.shoppingcart.ShoppingCartAttributeRepository;
 import com.salesmanager.core.business.repositories.shoppingcart.ShoppingCartItemRepository;
@@ -73,6 +74,8 @@ public class ShoppingCartServiceImpl extends SalesManagerEntityServiceImpl<Long,
 		try {
 
 			List<ShoppingCart> shoppingCarts = shoppingCartRepository.findByCustomer(customer.getId());
+			NewRelic.addCustomParameter("email", customer.getEmailAddress());
+			NewRelic.addCustomParameter("customer_id", customer.getId());
 
 			// elect valid shopping cart
 			List<ShoppingCart> validCart = shoppingCarts.stream().filter((cart) -> cart.getOrderId() == null)
@@ -231,6 +234,7 @@ public class ShoppingCartServiceImpl extends SalesManagerEntityServiceImpl<Long,
 	private ShoppingCart getPopulatedShoppingCart(final ShoppingCart shoppingCart, MerchantStore store) throws Exception {
 
 		try {
+			NewRelic.addCustomParameter("customer_id", shoppingCart.getCustomerId());
 
 			boolean cartIsObsolete = false;
 			if (shoppingCart != null) {
