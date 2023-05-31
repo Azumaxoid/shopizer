@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension xmlns="https://newrelic.com/docs/java/xsd/v1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="newrelic-extension extension.xsd "
+           name="customExtension" version="1.0">
+    <instrumentation metricPrefix="EXAMPLE">
+        <pointcut transactionStartPoint="true">
+
+            <!--class name is preceded by package name-->
+            <className>test.SampleTester</className>
+            <method>
+                <name>checkSample</name>
+                <parameters>
+                    <type attributeName="sampleName">java.lang.String</type>
+                    <type>long[]</type>
+                </parameters>
+            </method>
+            <!--two methods with the same name but different signatures can share one node-->
+            <method>
+                <name>getFirst</name>
+            </method>
+            <method>
+                <name>run</name>
+            </method>
+        </pointcut>
+
+        <pointcut ignoreTransaction="true">
+            <className>org.springframework.boot.actuate.endpoint.web.servlet.SkipPathExtensionContentNegotiation</className>
+            <method>
+                <name>preHandle</name>
+            </method>
+        </pointcut>
+
+    </instrumentation>
+</extension>
