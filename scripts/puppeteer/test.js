@@ -76,7 +76,7 @@ const HEADLESS = process.env.HEADLESS === 'false' ? false : 'new';
         try {
             await test(users[i % users.length])
         } catch (e) {
-            console.error(e)
+            //console.error(e)
         } finally {
         }
     }

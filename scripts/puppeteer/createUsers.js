@@ -46,6 +46,7 @@ const HEADLESS = process.env.HEADLESS === 'false' ? false : 'new';
     }
 
     const test = async (user) => {
+        console.log(`User: ${user.email} Password: p@55w0rd`)
         await page.goto(URL);
         await page.waitForSelector('.account-setting-active', {visible: true});
         await wait(1000)
@@ -76,7 +77,7 @@ const HEADLESS = process.env.HEADLESS === 'false' ? false : 'new';
         try {
             await test(users[i % users.length])
         } catch (e) {
-            console.error(e)
+            //console.error(e)
         } finally {
         }
     }

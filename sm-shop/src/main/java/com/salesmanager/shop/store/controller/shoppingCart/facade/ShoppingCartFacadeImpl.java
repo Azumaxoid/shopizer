@@ -833,9 +833,11 @@ public class ShoppingCartFacadeImpl implements ShoppingCartFacade {
 			MerchantStore store, Language language) throws Exception {
 
 		com.salesmanager.core.model.shoppingcart.ShoppingCartItem itemModel = createCartItem(cartModel, item, store);
-		NewRelic.addCustomParameter("customer_id", cartModel.getCustomerId());
-		if (cartModel.getCustomerId() < 202) {
-			throw new RuntimeException("This is Dummy Exception");
+		if (cartModel.getCustomerId() != null) {
+			NewRelic.addCustomParameter("customer_id", cartModel.getCustomerId());
+			if (cartModel.getCustomerId().longValue() < 202) {
+				throw new RuntimeException("This is Dummy Exception");
+			}
 		}
 
 		// need to check if the item is already in the cart
