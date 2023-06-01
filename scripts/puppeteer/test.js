@@ -50,18 +50,12 @@ const HEADLESS = process.env.HEADLESS === 'false' ? false : 'new';
         await page.waitForSelector('.account-setting-active', {visible: true});
         await wait(1000)
         await page.click('.account-setting-active')
-        await page.waitForSelector('[href="/register"]', {visible: true});
-        await page.click('[href="/register"]')
-        await page.waitForSelector('[name="email"]', {visible: true});
-        await typeText('[name="email"]', user.email)
-        await typeText('[name="password"]', "p@55w0rd")
-        await typeText('[name="repeatPassword"]', "p@55w0rd")
-        await typeText('[name="firstName"]', user.name.split(' ')[1])
-        await typeText('[name="lastName"]', user.name.split(' ')[0])
-        await typeText('.login-input select:nth-child(1)', "CA")
-        await wait(500)
-        await typeText('.login-input:nth-child(9) select', "QC")
-        await page.click('[role="tabpanel"]:nth-child(2) [type="submit"]')
+        await page.waitForSelector('[href="/login"]', {visible: true});
+        await page.click('[href="/login"]')
+        await page.waitForSelector('[name="username"]', {visible: true});
+        await typeText('[name="username"]', user.email)
+        await typeText('[name="loginPassword"]', "p@55w0rd")
+        await page.click('[role="tabpanel"]:nth-child(1) [type="submit"]')
         await wait(1000)
         await page.waitForSelector('.billing-btn', {visible: true});
         await page.waitForSelector('[href="/category/tables"]', {visible: true});
@@ -75,7 +69,6 @@ const HEADLESS = process.env.HEADLESS === 'false' ? false : 'new';
         await page.click('button.icon-cart')
         await page.waitForSelector('[href="/cart"]', {visible: true});
         await page.click('[href="/cart"]')
-        await page.click('[href="/checkout"]')
     }
     await page.goto(URL);
 

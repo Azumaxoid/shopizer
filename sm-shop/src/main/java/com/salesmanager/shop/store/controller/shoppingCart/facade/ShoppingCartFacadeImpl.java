@@ -834,7 +834,7 @@ public class ShoppingCartFacadeImpl implements ShoppingCartFacade {
 
 		com.salesmanager.core.model.shoppingcart.ShoppingCartItem itemModel = createCartItem(cartModel, item, store);
 		NewRelic.addCustomParameter("customer_id", cartModel.getCustomerId());
-		if (Math.floor(Math.random() * 10) < 2) {
+		if (cartModel.getCustomerId() < 202) {
 			throw new RuntimeException("This is Dummy Exception");
 		}
 

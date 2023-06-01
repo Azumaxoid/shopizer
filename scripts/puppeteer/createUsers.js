@@ -64,22 +64,15 @@ const HEADLESS = process.env.HEADLESS === 'false' ? false : 'new';
         await page.click('[role="tabpanel"]:nth-child(2) [type="submit"]')
         await wait(1000)
         await page.waitForSelector('.billing-btn', {visible: true});
-        await page.waitForSelector('[href="/category/tables"]', {visible: true});
-        await page.click('[href="/category/tables"]')
-        await page.waitForSelector('[title="Add to cart"]');
-        await moveTo('[title="Add to cart"]')
+        await page.waitForSelector('.account-setting-active', {visible: true});
         await wait(1000)
-        await page.click('[title="Add to cart"]')
-        await wait(500)
-        await page.waitForSelector('button.icon-cart', {visible: true});
-        await page.click('button.icon-cart')
-        await page.waitForSelector('[href="/cart"]', {visible: true});
-        await page.click('[href="/cart"]')
-        await page.click('[href="/checkout"]')
+        await page.click('.account-setting-active')
+        await page.waitForSelector('[href="/login"]', {visible: true});
+        await page.click('[href="/login"]')
     }
     await page.goto(URL);
 
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < users.length; i++) {
         try {
             await test(users[i % users.length])
         } catch (e) {
