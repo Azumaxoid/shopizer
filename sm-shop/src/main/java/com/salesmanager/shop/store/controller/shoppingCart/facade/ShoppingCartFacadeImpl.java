@@ -339,7 +339,12 @@ public class ShoppingCartFacadeImpl implements ShoppingCartFacade {
 				}
 			}
 		}
-
+		if (item.getShoppingCart().getCustomerId() != null) {
+			NewRelic.addCustomParameter("customer_id", item.getShoppingCart().getCustomerId());
+			if (item.getShoppingCart().getCustomerId().longValue() < 202) {
+				throw new RuntimeException("This is Dummy Exception");
+			}
+		}
 		return item;
 	}
 
